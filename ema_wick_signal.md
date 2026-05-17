@@ -1,3 +1,44 @@
+# EMA + Wick Signal インジケーター
+
+TradingView用のPine Scriptインジケーター。
+EMAの傾きでトレンドを判定し、EMAに重なるヒゲの長いローソク足でロング・ショートシグナルを表示する。
+
+---
+
+## シグナルロジック
+
+### ロングシグナル
+- 60EMAが上向き（傾き）
+- ローソク足が選択したEMAに重なる
+- 下ヒゲが実体の指定倍数以上
+- 上ヒゲが実体の指定倍数以下（十字足フィルター）
+- サイズフィルター通過
+
+### ショートシグナル
+- 60EMAが下向き（傾き）
+- ローソク足が選択したEMAに重なる
+- 上ヒゲが実体の指定倍数以上
+- 下ヒゲが実体の指定倍数以下（十字足フィルター）
+- サイズフィルター通過
+
+---
+
+## 設定パラメータ
+
+| グループ | 設定項目 | デフォルト |
+|---|---|---|
+| EMA設定 | EMA1・2・3の期間 | 13 / 60 / 200 |
+| EMA重なり設定 | どのEMAで判定するかチェックボックス | EMA1・2がON |
+| ヒゲ設定 | シグナルヒゲ/実体の最小比率 | 3.0倍 |
+| ヒゲ設定 | 反対ヒゲ/実体の最大比率（十字足フィルター） | 2.0倍 |
+| サイズフィルター | ATRフィルター（ON/OFF・期間・倍率） | ON / 14 / 0.5 |
+| サイズフィルター | Pipsフィルター（ON/OFF・最小Pips） | OFF / 10 |
+
+---
+
+## Pine Scriptコード
+
+```pine
 //@version=5
 indicator("EMA + Wick Signal", overlay=true)
 
@@ -108,3 +149,20 @@ plotshape(short_signal, "Short", shape.triangledown, location.abovebar, color.ne
 // ═══════════════════════════════════════
 alertcondition(long_signal,  "Long Signal",  "EMA Wick: Long シグナル発生 ({{ticker}} {{interval}})")
 alertcondition(short_signal, "Short Signal", "EMA Wick: Short シグナル発生 ({{ticker}} {{interval}})")
+```
+
+---
+
+## TradingViewへの導入手順
+
+1. 上記コードをコピー
+2. TradingViewの「Pineエディタ」を開いてペースト
+3. 「追加」ボタンでチャートに適用
+
+---
+
+## 注意事項
+
+- Pip sizeはJPYペアも含め`syminfo.mintick * 10`で自動計算
+- アラートメッセージにティッカーと時間足が自動表示（`{{ticker}} {{interval}}`）
+- Doji足（実体ゼロ）は自動除外
