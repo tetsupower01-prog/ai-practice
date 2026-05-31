@@ -1,0 +1,260 @@
+/* Market Time Clock — モバイルファースト */
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+:root {
+	--bg: #0f172a;
+	--surface: #1e293b;
+	--surface-hover: #334155;
+	--border: #334155;
+	--text: #f1f5f9;
+	--text-muted: #94a3b8;
+	--accent: #38bdf8;
+	--accent-dim: #0ea5e9;
+	--dst: #fbbf24;
+	--standard: #34d399;
+	--no-dst: #94a3b8;
+	--radius: 12px;
+	--shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+}
+
+html {
+	font-size: 16px;
+	-webkit-text-size-adjust: 100%;
+}
+
+body {
+	font-family: "Segoe UI", "Hiragino Sans", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+	background: var(--bg);
+	background-image:
+		radial-gradient(ellipse at 20% 0%, rgba(56, 189, 248, 0.08) 0%, transparent 50%),
+		radial-gradient(ellipse at 80% 100%, rgba(52, 211, 153, 0.06) 0%, transparent 50%);
+	color: var(--text);
+	min-height: 100dvh;
+	line-height: 1.5;
+}
+
+.app {
+	max-width: 640px;
+	margin: 0 auto;
+	padding: 1.25rem 1rem 2rem;
+	min-height: 100dvh;
+	display: flex;
+	flex-direction: column;
+}
+
+/* ヘッダー */
+.header {
+	text-align: center;
+	padding: 1.5rem 0 1.25rem;
+}
+
+.header__title {
+	font-size: 1.5rem;
+	font-weight: 700;
+	letter-spacing: 0.02em;
+	color: var(--text);
+}
+
+.header__subtitle {
+	font-size: 0.875rem;
+	color: var(--text-muted);
+	margin-top: 0.35rem;
+}
+
+.header__reference {
+	font-size: 0.8125rem;
+	color: var(--accent);
+	margin-top: 0.75rem;
+	font-variant-numeric: tabular-nums;
+}
+
+/* 都市リスト */
+.main {
+	flex: 1;
+}
+
+.city-list-header {
+	display: grid;
+	grid-template-columns: minmax(5.5rem, 1fr) minmax(7rem, 1.4fr) minmax(5.5rem, 1fr);
+	gap: 0.5rem 0.75rem;
+	padding: 0 0.25rem 0.5rem;
+	border-bottom: 1px solid var(--border);
+	margin-bottom: 0.5rem;
+}
+
+.city-list-header__col {
+	font-size: 0.75rem;
+	font-weight: 600;
+	color: var(--text-muted);
+	letter-spacing: 0.06em;
+}
+
+.city-list-header__col:nth-child(2) {
+	text-align: center;
+}
+
+.city-list-header__col:nth-child(3) {
+	text-align: right;
+}
+
+.city-list {
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+}
+
+.city-card {
+	background: var(--surface);
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
+	padding: 1rem 1.125rem;
+	box-shadow: var(--shadow);
+	display: grid;
+	grid-template-columns: minmax(5.5rem, 1fr) minmax(7rem, 1.4fr) minmax(5.5rem, 1fr);
+	align-items: center;
+	gap: 0.5rem 0.75rem;
+	transition: border-color 0.2s;
+}
+
+.city-card:hover {
+	border-color: var(--accent-dim);
+}
+
+.city-card__region {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 0.3rem;
+	min-width: 0;
+}
+
+.city-card__name {
+	font-size: 1rem;
+	font-weight: 600;
+	line-height: 1.3;
+}
+
+.city-card__timezone {
+	font-size: 0.75rem;
+	color: var(--text-muted);
+}
+
+.city-card__date {
+	font-size: 1.125rem;
+	font-weight: 600;
+	font-variant-numeric: tabular-nums;
+	color: var(--text);
+	text-align: center;
+	line-height: 1.35;
+}
+
+.city-card__time {
+	font-size: 1.625rem;
+	font-weight: 700;
+	font-variant-numeric: tabular-nums;
+	letter-spacing: 0.04em;
+	color: var(--accent);
+	text-align: right;
+	line-height: 1.2;
+}
+
+/* 夏時間バッジ */
+.badge {
+	display: inline-flex;
+	align-items: center;
+	padding: 0.2rem 0.6rem;
+	border-radius: 999px;
+	font-size: 0.75rem;
+	font-weight: 600;
+	white-space: nowrap;
+}
+
+.badge--dst {
+	background: rgba(251, 191, 36, 0.15);
+	color: var(--dst);
+	border: 1px solid rgba(251, 191, 36, 0.35);
+}
+
+.badge--standard {
+	background: rgba(52, 211, 153, 0.12);
+	color: var(--standard);
+	border: 1px solid rgba(52, 211, 153, 0.3);
+}
+
+.badge--no-dst {
+	background: rgba(148, 163, 184, 0.12);
+	color: var(--no-dst);
+	border: 1px solid rgba(148, 163, 184, 0.25);
+}
+
+.city-card__offset {
+	font-size: 0.6875rem;
+	color: var(--text-muted);
+	line-height: 1.35;
+}
+
+.city-card__offset strong {
+	color: var(--text);
+	font-weight: 600;
+}
+
+/* フッター */
+.footer {
+	text-align: center;
+	padding-top: 1.5rem;
+}
+
+.footer__note,
+.footer__updated {
+	font-size: 0.75rem;
+	color: var(--text-muted);
+}
+
+.footer__updated {
+	margin-top: 0.35rem;
+	font-variant-numeric: tabular-nums;
+}
+
+/* タブレット以上 */
+@media (min-width: 480px) {
+	.app {
+		padding: 2rem 1.5rem;
+	}
+
+	.header__title {
+		font-size: 1.75rem;
+	}
+
+	.city-list-header {
+		grid-template-columns: minmax(6rem, 1fr) minmax(9rem, 1.5fr) minmax(6.5rem, 1fr);
+		gap: 0.75rem 1rem;
+	}
+
+	.city-card {
+		padding: 1.125rem 1.375rem;
+		grid-template-columns: minmax(6rem, 1fr) minmax(9rem, 1.5fr) minmax(6.5rem, 1fr);
+		gap: 0.75rem 1rem;
+	}
+
+	.city-card__date {
+		font-size: 1.3125rem;
+	}
+
+	.city-card__time {
+		font-size: 1.875rem;
+	}
+}
+
+@media (min-width: 640px) {
+	.header__title {
+		font-size: 2rem;
+	}
+}

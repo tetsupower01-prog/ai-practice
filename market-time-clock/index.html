@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="世界主要都市の現在時刻と夏時間・標準時間の状態を表示する時計アプリ">
+	<meta name="theme-color" content="#0f172a">
+	<title>Market Time Clock</title>
+	<link rel="manifest" href="manifest.json">
+	<link rel="stylesheet" href="style.css">
+	<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕐</text></svg>">
+</head>
+<body>
+	<div class="app">
+		<header class="header">
+			<h1 class="header__title">Market Time Clock</h1>
+			<p class="header__subtitle">世界主要都市の現在時刻</p>
+			<p class="header__reference" id="tokyo-reference">基準: 東京 —</p>
+		</header>
+
+		<main class="main">
+			<div class="city-list-header" aria-hidden="true">
+				<span class="city-list-header__col">地域</span>
+				<span class="city-list-header__col">日時</span>
+				<span class="city-list-header__col">時刻</span>
+			</div>
+			<ul class="city-list" id="city-list" aria-live="polite"></ul>
+		</main>
+
+		<footer class="footer">
+			<p class="footer__note">時刻は端末の時計とタイムゾーンデータに基づきます</p>
+			<p class="footer__updated" id="last-updated"></p>
+		</footer>
+	</div>
+
+	<script src="app.js"></script>
+</body>
+</html>
