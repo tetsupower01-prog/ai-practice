@@ -1,0 +1,4 @@
+service_account.json
+restaurants.csv
+__pycache__/
+*.pyc
