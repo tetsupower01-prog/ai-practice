@@ -1,0 +1,235 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', sans-serif;
+  background: #f0f4f8;
+  overflow: hidden;
+}
+
+/* ---- 画面切り替え ---- */
+.screen {
+  display: none;
+  flex-direction: column;
+  height: 100vh;
+  height: 100dvh;
+}
+
+.screen.active {
+  display: flex;
+}
+
+/* ---- 地図画面 ---- */
+.map-header {
+  flex-shrink: 0;
+  padding: 14px 16px 10px;
+  background: #1565C0;
+  color: #fff;
+}
+
+.map-header h1 {
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.subtitle {
+  font-size: 12px;
+  opacity: 0.8;
+  margin-top: 2px;
+}
+
+#map {
+  flex: 1;
+  min-height: 0;
+}
+
+.map-footer {
+  flex-shrink: 0;
+  padding: 12px 16px;
+  background: #fff;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 84px;
+  justify-content: center;
+}
+
+.info-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #E3F2FD;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #1565C0;
+}
+
+.info-label {
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+#destination-coords {
+  font-variant-numeric: tabular-nums;
+  word-break: break-all;
+}
+
+.hint-text {
+  text-align: center;
+  font-size: 13px;
+  color: #9E9E9E;
+  padding: 4px 0;
+}
+
+/* ---- ナビ画面 ---- */
+.nav-header {
+  flex-shrink: 0;
+  padding: 12px 16px;
+  background: #1565C0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.status-badge {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.75);
+  text-align: right;
+}
+
+.status-badge.ok  { color: #A5D6A7; }
+.status-badge.err { color: #EF9A9A; }
+
+.nav-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 20px;
+  gap: 20px;
+  overflow-y: auto;
+}
+
+#arrow-wrap {
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#arrow-svg {
+  width: 170px;
+  height: 170px;
+  transition: transform 0.25s ease-out;
+  filter: drop-shadow(0 6px 14px rgba(21, 101, 192, 0.35));
+}
+
+.nav-stats {
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 52px;
+  font-weight: 800;
+  color: #1565C0;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.stat-unit {
+  font-size: 14px;
+  color: #78909C;
+  margin-top: 4px;
+}
+
+.nav-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.meta-text {
+  font-size: 14px;
+  color: #546E7A;
+}
+
+.compass-note {
+  font-size: 12px;
+  color: #90A4AE;
+}
+
+/* ---- ボタン ---- */
+.btn {
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity 0.15s;
+}
+
+.btn:active {
+  opacity: 0.75;
+}
+
+.btn-primary {
+  background: #1565C0;
+  color: #fff;
+  padding: 16px 24px;
+  width: 100%;
+}
+
+.btn-back {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+  padding: 10px 16px;
+  font-size: 14px;
+  border-radius: 8px;
+}
+
+.btn-compass {
+  background: #E3F2FD;
+  color: #1565C0;
+  padding: 14px 24px;
+  width: 100%;
+  max-width: 300px;
+  border: 2px solid #90CAF9;
+  font-size: 15px;
+}
+
+/* ---- エラー ---- */
+.error-box {
+  background: #FFEBEE;
+  color: #B71C1C;
+  border-radius: 10px;
+  padding: 14px 16px;
+  font-size: 13px;
+  line-height: 1.6;
+  text-align: center;
+  width: 100%;
+  max-width: 340px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ---- Leaflet 目的地ピン ---- */
+.dest-pin-icon {
+  background: none !important;
+  border: none !important;
+  font-size: 28px;
+  line-height: 1;
+}

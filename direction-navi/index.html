@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#1565C0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="方向ナビ">
+  <title>目的地方向ナビ</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icon.svg">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- 地図画面 -->
+  <div id="map-screen" class="screen active">
+    <div class="map-header">
+      <h1>目的地を選択</h1>
+      <p class="subtitle">地図をタップして目的地を設定</p>
+    </div>
+    <div id="map"></div>
+    <div class="map-footer">
+      <div id="destination-info" class="info-box hidden">
+        <span class="info-label">目的地</span>
+        <span id="destination-coords"></span>
+      </div>
+      <div id="no-dest-hint" class="hint-text">地図をタップして目的地を選んでください</div>
+      <button id="start-nav-btn" class="btn btn-primary hidden">ナビ開始 →</button>
+    </div>
+  </div>
+
+  <!-- ナビ画面 -->
+  <div id="nav-screen" class="screen">
+    <div class="nav-header">
+      <button id="change-dest-btn" class="btn btn-back">← 変更</button>
+      <div id="location-status" class="status-badge">位置取得中...</div>
+    </div>
+
+    <div class="nav-body">
+      <div id="arrow-wrap">
+        <svg id="arrow-svg" viewBox="0 0 100 130" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="50,4 96,70 68,70 68,126 32,126 32,70 4,70" fill="#1565C0"/>
+        </svg>
+      </div>
+
+      <div class="nav-stats">
+        <div id="distance-display" class="stat-value">--</div>
+        <div class="stat-unit">目的地まで</div>
+      </div>
+
+      <div class="nav-meta">
+        <div id="bearing-display" class="meta-text">方位: --°</div>
+        <div id="compass-status" class="meta-text compass-note"></div>
+      </div>
+
+      <button id="compass-perm-btn" class="btn btn-compass hidden">コンパスを有効にする</button>
+
+      <div id="nav-error" class="error-box hidden"></div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
