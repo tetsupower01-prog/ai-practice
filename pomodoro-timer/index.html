@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="集中時間と休憩時間を自由に設定できるポモドーロタイマー">
+	<meta name="theme-color" content="#f5f1e8">
+	<title>Focus Loop | ポモドーロタイマー</title>
+	<link rel="manifest" href="./manifest.json">
+	<link rel="icon" href="./icon.svg" type="image/svg+xml">
+	<link rel="apple-touch-icon" href="./icon.svg">
+	<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+	<div class="screen_flash" id="screen_flash" aria-hidden="true"></div>
+	<div class="ambient ambient--one" aria-hidden="true"></div>
+	<div class="ambient ambient--two" aria-hidden="true"></div>
+
+	<main class="app">
+		<header class="header">
+			<a class="brand" href="./" aria-label="Focus Loop ホーム">
+				<span class="brand__mark" aria-hidden="true"></span>
+				<span>Focus Loop</span>
+			</a>
+			<button class="icon_button" id="settings_button" type="button" aria-label="設定を開く" aria-controls="settings_panel" aria-expanded="false">
+				<svg viewBox="0 0 24 24" aria-hidden="true">
+					<path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z"/>
+					<path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.8 2.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.2h-4V21a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1L4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9A1.7 1.7 0 0 0 3 14H2.8v-4H3a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.2 7 7 4.2l.1.1A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-1.6v-.2h4V3a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.2v4H21a1.7 1.7 0 0 0-1.6 1Z"/>
+				</svg>
+			</button>
+		</header>
+
+		<section class="timer_card" aria-labelledby="mode_label">
+			<div class="mode_switcher" role="tablist" aria-label="タイマーモード">
+				<button class="mode_button is_active" id="focus_mode_button" type="button" role="tab" aria-selected="true">集中</button>
+				<button class="mode_button" id="break_mode_button" type="button" role="tab" aria-selected="false">休憩</button>
+			</div>
+
+			<p class="eyebrow" id="mode_label">集中する時間</p>
+
+			<div class="timer" aria-live="off">
+				<svg class="timer__ring" viewBox="0 0 320 320" aria-hidden="true">
+					<circle class="timer__track" cx="160" cy="160" r="145"></circle>
+					<circle class="timer__progress" id="progress_ring" cx="160" cy="160" r="145"></circle>
+				</svg>
+				<div class="timer__content">
+					<time class="timer__time" id="timer_display" datetime="PT25M">25:00</time>
+					<p class="timer__hint" id="timer_hint">準備ができたら始めましょう</p>
+				</div>
+			</div>
+
+			<div class="controls">
+				<button class="secondary_button" id="reset_button" type="button" aria-label="タイマーをリセット">
+					<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4v6h6M5.1 15a8 8 0 1 0 .5-7.5L4 10"/></svg>
+				</button>
+				<button class="primary_button" id="start_button" type="button">
+					<svg id="start_icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 9 6-9 6V6Z"/></svg>
+					<span id="start_label">スタート</span>
+				</button>
+				<button class="secondary_button" id="skip_button" type="button" aria-label="次のモードへ進む">
+					<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 8 6-8 6V6Zm10 0v12"/></svg>
+				</button>
+			</div>
+
+			<div class="session_summary">
+				<div>
+					<span class="session_summary__label">今日の集中</span>
+					<strong id="focus_count">0 セッション</strong>
+				</div>
+				<div class="session_summary__divider" aria-hidden="true"></div>
+				<div>
+					<span class="session_summary__label">現在のサイクル</span>
+					<div class="cycle_dots" id="cycle_dots" aria-label="現在のサイクル"></div>
+				</div>
+			</div>
+		</section>
+
+		<p class="keyboard_hint"><kbd>Space</kbd> で開始・一時停止</p>
+	</main>
+
+	<div class="panel_backdrop" id="panel_backdrop" hidden></div>
+	<aside class="settings_panel" id="settings_panel" aria-labelledby="settings_title" aria-hidden="true">
+		<div class="settings_panel__header">
+			<div>
+				<p class="eyebrow">Preferences</p>
+				<h2 id="settings_title">タイマー設定</h2>
+			</div>
+			<button class="icon_button" id="close_settings_button" type="button" aria-label="設定を閉じる">
+				<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+			</button>
+		</div>
+
+		<form id="settings_form">
+			<div class="field_group">
+				<label for="focus_minutes">集中時間</label>
+				<div class="number_field">
+					<input id="focus_minutes" name="focus_minutes" type="number" min="1" max="180" value="25" inputmode="numeric">
+					<span>分</span>
+				</div>
+			</div>
+			<div class="field_group">
+				<label for="break_minutes">休憩時間</label>
+				<div class="number_field">
+					<input id="break_minutes" name="break_minutes" type="number" min="1" max="60" value="5" inputmode="numeric">
+					<span>分</span>
+				</div>
+			</div>
+			<div class="field_group">
+				<label for="sessions_per_cycle">1サイクルの集中回数</label>
+				<div class="number_field">
+					<input id="sessions_per_cycle" name="sessions_per_cycle" type="number" min="1" max="10" value="4" inputmode="numeric">
+					<span>回</span>
+				</div>
+			</div>
+
+			<label class="toggle_row">
+				<span>
+					<strong>自動で次を開始</strong>
+					<small>終了後に次のタイマーを開始します</small>
+				</span>
+				<input id="auto_start" name="auto_start" type="checkbox" checked>
+				<span class="toggle" aria-hidden="true"></span>
+			</label>
+			<label class="toggle_row">
+				<span>
+					<strong>終了音</strong>
+					<small>モード切替時に音で知らせます</small>
+				</span>
+				<input id="sound_enabled" name="sound_enabled" type="checkbox" checked>
+				<span class="toggle" aria-hidden="true"></span>
+			</label>
+			<label class="toggle_row">
+				<span>
+					<strong>デスクトップ通知</strong>
+					<small>画面を閉じていても通知します</small>
+				</span>
+				<input id="notifications_enabled" name="notifications_enabled" type="checkbox" checked>
+				<span class="toggle" aria-hidden="true"></span>
+			</label>
+
+			<button class="save_button" type="submit">設定を保存</button>
+			<button class="reset_all_button" id="reset_all_button" type="button">すべてリセット</button>
+			<p class="reset_all_note">時間設定、タイマー、今日の集中、現在のサイクルを初期化します</p>
+		</form>
+	</aside>
+
+	<div class="toast" id="toast" role="status" aria-live="polite"></div>
+	<script src="./app.js"></script>
+</body>
+</html>
