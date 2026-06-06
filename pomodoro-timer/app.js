@@ -109,13 +109,13 @@ function format_time(seconds) {
 /** タイマーと進捗表示を更新する */
 function render_timer(precise_remaining_seconds = remaining_seconds) {
 	const progress = total_seconds === 0 ? 0 : precise_remaining_seconds / total_seconds;
-	const offset = -RING_CIRCUMFERENCE * (1 - progress);
+	const remaining_length = RING_CIRCUMFERENCE * progress;
 	const formatted_time = format_time(remaining_seconds);
 
 	elements.timer_display.textContent = formatted_time;
 	elements.timer_display.dateTime = `PT${remaining_seconds}S`;
-	elements.progress_ring.style.strokeDasharray = RING_CIRCUMFERENCE;
-	elements.progress_ring.style.strokeDashoffset = offset;
+	elements.progress_ring.style.strokeDasharray = `${remaining_length} ${RING_CIRCUMFERENCE}`;
+	elements.progress_ring.style.strokeDashoffset = '0';
 	document.title = `${formatted_time} | ${state.mode === 'focus' ? '集中' : '休憩'} - Focus Loop`;
 }
 

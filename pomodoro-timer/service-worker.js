@@ -1,6 +1,6 @@
 'use strict';
 
-const CACHE_NAME = 'focus-loop-v12';
+const CACHE_NAME = 'focus-loop-v13';
 const STATIC_ASSETS = [
 	'./',
 	'./index.html',
