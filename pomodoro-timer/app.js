@@ -107,8 +107,8 @@ function format_time(seconds) {
 }
 
 /** タイマーと進捗表示を更新する */
-function render_timer() {
-	const progress = total_seconds === 0 ? 0 : remaining_seconds / total_seconds;
+function render_timer(precise_remaining_seconds = remaining_seconds) {
+	const progress = total_seconds === 0 ? 0 : precise_remaining_seconds / total_seconds;
 	const offset = -RING_CIRCUMFERENCE * (1 - progress);
 	const formatted_time = format_time(remaining_seconds);
 
@@ -165,8 +165,9 @@ function render_running_state(is_running) {
 
 /** 終了予定時刻を基準に残り時間を進める */
 function tick() {
-	remaining_seconds = Math.max(0, Math.ceil((target_time - Date.now()) / 1000));
-	render_timer();
+	const remaining_milliseconds = Math.max(0, target_time - Date.now());
+	remaining_seconds = Math.ceil(remaining_milliseconds / 1000);
+	render_timer(remaining_milliseconds / 1000);
 
 	if (remaining_seconds === 0) {
 		complete_timer();
@@ -180,7 +181,7 @@ function start_timer() {
 	}
 
 	target_time = Date.now() + remaining_seconds * 1000;
-	timer_id = window.setInterval(tick, 250);
+	timer_id = window.setInterval(tick, 50);
 	render_running_state(true);
 }
 
