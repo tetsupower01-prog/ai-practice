@@ -275,7 +275,7 @@ button {
 	stroke-dasharray: 911.06;
 	stroke-dashoffset: 0;
 	stroke-linecap: round;
-	transform: rotate(-90deg);
+	transform: rotate(90deg) scaleX(-1);
 	transform-box: fill-box;
 	transform-origin: center;
 	transition: stroke 250ms ease;
