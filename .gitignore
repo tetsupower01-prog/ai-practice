@@ -1,0 +1,28 @@
+# 認証情報・ローカル設定
+.env
+.env.*
+*.key
+*.pem
+config.json
+
+# 個人用ドキュメント・ログ
+*.pdf
+chat_export_*.txt
+作業ログ_*.md
+
+# 相場データ・分析結果
+usdjpy/
+analysis_output/
+*.csv
+
+# 非公開の開発コード
+MQL5/
+TradingView/
+
+# 生成物・一時ファイル
+__pycache__/
+*.pyc
+*.wav
+*.mp4
+direction-navi/video-tools/
+
