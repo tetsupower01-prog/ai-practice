@@ -891,6 +891,53 @@ h1 em {
 	font-size: 0.8rem;
 }
 
+.development_note {
+	display: grid;
+	align-items: center;
+	width: min(100% - 48px, 980px);
+	margin: 100px auto 0;
+	padding: 48px 55px;
+	border: 1px solid var(--line);
+	border-radius: 24px;
+	background: rgba(255, 253, 249, 0.58);
+	grid-template-columns: auto 1fr;
+	gap: 36px;
+}
+
+.development_note__mark {
+	display: grid;
+	width: 82px;
+	height: 82px;
+	border-radius: 24px;
+	background: rgba(110, 141, 128, 0.13);
+	color: var(--sage);
+	font-family: Georgia, serif;
+	font-size: 1.15rem;
+	font-weight: 700;
+	place-items: center;
+}
+
+.development_note .eyebrow {
+	margin-bottom: 8px;
+	color: var(--sage);
+}
+
+.development_note h2 {
+	margin-bottom: 13px;
+	font-size: 1.9rem;
+}
+
+.development_note p {
+	margin-bottom: 8px;
+	color: var(--muted);
+	font-size: 0.78rem;
+	line-height: 1.9;
+}
+
+.development_note__sub {
+	margin-bottom: 0 !important;
+}
+
 .final_cta {
 	position: relative;
 	display: grid;
@@ -1071,6 +1118,7 @@ a:focus-visible {
 	.hero,
 	.intro,
 	.features,
+	.development_note,
 	.final_cta,
 	.site_footer {
 		width: min(100% - 32px, 1180px);
@@ -1142,6 +1190,49 @@ a:focus-visible {
 		align-items: stretch;
 		flex-direction: column;
 		text-align: center;
+	}
+
+	.button {
+		min-height: 52px;
+		padding: 15px 24px;
+		font-size: 0.95rem;
+	}
+
+	.hero__actions .button,
+	.install_action .button,
+	.final_cta .button {
+		width: 100%;
+	}
+
+	.nav_cta {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 46px;
+		padding: 10px 18px;
+		font-size: 0.82rem;
+	}
+
+	.development_note {
+		align-items: flex-start;
+		margin-top: 70px;
+		padding: 34px 26px;
+		grid-template-columns: 1fr;
+		gap: 22px;
+	}
+
+	.development_note__mark {
+		width: 62px;
+		height: 62px;
+		border-radius: 18px;
+	}
+
+	.development_note h2 {
+		font-size: 1.65rem;
+	}
+
+	.development_note p {
+		font-size: 0.84rem;
 	}
 
 	.step__illustration {
