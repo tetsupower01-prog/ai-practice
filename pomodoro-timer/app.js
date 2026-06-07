@@ -197,9 +197,38 @@ function pause_timer() {
 	render_running_state(false);
 }
 
+/** 通知が有効な場合は開始操作時に許可を確認する */
+async function ensure_notification_permission() {
+	if (!state.notifications_enabled || !('Notification' in window)) {
+		return;
+	}
+
+	if (Notification.permission === 'granted') {
+		return;
+	}
+
+	if (Notification.permission === 'denied') {
+		state.notifications_enabled = false;
+		elements.notifications_enabled.checked = false;
+		save_state();
+		show_toast('通知がブロックされています');
+		return;
+	}
+
+	const permission = await Notification.requestPermission();
+	state.notifications_enabled = permission === 'granted';
+	elements.notifications_enabled.checked = state.notifications_enabled;
+	save_state();
+
+	if (!state.notifications_enabled) {
+		show_toast('通知は許可されませんでした');
+	}
+}
+
 /** 開始と一時停止を切り替える */
-function toggle_timer() {
+async function toggle_timer() {
 	if (timer_id === null) {
+		await ensure_notification_permission();
 		start_timer();
 	} else {
 		pause_timer();
