@@ -711,7 +711,7 @@ h1 em {
 }
 
 .install {
-	padding: 115px max(24px, calc((100% - 1180px) / 2));
+	padding: 115px 24px;
 	background:
 		linear-gradient(rgba(255, 255, 255, 0.2) 1px, transparent 1px),
 		linear-gradient(90deg, rgba(255, 255, 255, 0.2) 1px, transparent 1px),
@@ -721,140 +721,59 @@ h1 em {
 
 .install_cards {
 	display: grid;
+	width: min(100%, 980px);
 	margin-top: 65px;
+	margin-right: auto;
+	margin-left: auto;
 	grid-template-columns: repeat(2, 1fr);
 	gap: 24px;
 }
 
 .install_card {
-	overflow: hidden;
+	position: relative;
 	border: 1px solid var(--line);
-	border-radius: 25px;
+	border-radius: 22px;
 	background: rgba(255, 253, 249, 0.8);
 	box-shadow: 0 20px 55px rgba(59, 53, 42, 0.08);
 }
 
-.install_card__visual {
-	display: grid;
-	height: 275px;
-	place-items: center;
+.install_card__content {
+	padding: 40px;
 }
 
-.install_card__visual--pc {
-	background: linear-gradient(145deg, rgba(223, 91, 67, 0.08), rgba(195, 152, 73, 0.1));
-}
-
-.install_card__visual--phone {
-	background: linear-gradient(145deg, rgba(110, 141, 128, 0.1), rgba(113, 138, 155, 0.1));
-}
-
-.device_pc {
-	position: relative;
-	width: 245px;
-}
-
-.device_pc__screen {
-	display: grid;
-	width: 245px;
-	height: 155px;
-	border: 8px solid var(--ink);
-	border-radius: 13px;
-	background: var(--white);
-	box-shadow: 0 18px 30px rgba(31, 51, 45, 0.16);
-	place-items: center;
-}
-
-.device_pc__screen::before {
-	position: absolute;
-	width: 82px;
-	height: 82px;
-	border: 3px solid var(--coral);
-	border-radius: 50%;
-	content: "";
-}
-
-.device_pc__stand {
-	width: 70px;
-	height: 32px;
-	margin: 0 auto;
-	border-bottom: 8px solid var(--ink);
-	background: linear-gradient(90deg, transparent 25px, var(--ink) 25px, var(--ink) 45px, transparent 45px);
-}
-
-.device_timer {
-	position: relative;
-	z-index: 1;
-	font-family: Georgia, serif;
-	font-size: 1.35rem;
-	letter-spacing: -0.04em;
-}
-
-.device_phone {
-	position: relative;
+.install_card__heading {
 	display: flex;
 	align-items: center;
-	justify-content: center;
-	width: 130px;
-	height: 225px;
-	border: 7px solid var(--ink);
-	border-radius: 27px;
-	background: var(--white);
-	box-shadow: 0 18px 30px rgba(31, 51, 45, 0.16);
-	flex-direction: column;
-}
-
-.device_phone::before {
-	position: absolute;
-	width: 84px;
-	height: 84px;
-	border: 3px solid var(--sage);
-	border-radius: 50%;
-	content: "";
-}
-
-.device_phone__speaker {
-	position: absolute;
-	top: 9px;
-	width: 28px;
-	height: 4px;
-	border-radius: 4px;
-	background: rgba(31, 51, 45, 0.25);
-}
-
-.device_phone__button {
-	position: absolute;
-	right: 38px;
-	bottom: 26px;
-	left: 38px;
-	padding: 5px;
-	border-radius: 999px;
-	background: var(--sage);
-	color: white;
-	font-size: 0.55rem;
-	text-align: center;
-}
-
-.install_card__content {
-	padding: 34px 38px 38px;
-}
-
-.install_card__label {
-	margin-bottom: 6px;
-	color: var(--coral);
-	font-size: 0.65rem;
+	margin-bottom: 22px;
+	color: var(--muted);
+	font-size: 0.72rem;
 	font-weight: 800;
-	letter-spacing: 0.18em;
-	text-transform: uppercase;
+	gap: 11px;
 }
 
-.install_card:nth-child(2) .install_card__label {
+.install_card__icon {
+	display: grid;
+	width: 40px;
+	height: 40px;
+	border-radius: 12px;
+	font-size: 1.1rem;
+	place-items: center;
+}
+
+.install_card__icon--pc {
+	background: rgba(223, 91, 67, 0.11);
+	color: var(--coral);
+}
+
+.install_card__icon--phone {
+	background: rgba(110, 141, 128, 0.14);
 	color: var(--sage);
 }
 
 .install_card h3 {
-	margin-bottom: 22px;
+	margin-bottom: 25px;
 	font-family: Georgia, "Yu Mincho", serif;
-	font-size: 1.45rem;
+	font-size: 1.6rem;
 }
 
 .install_card ol {
@@ -906,7 +825,10 @@ h1 em {
 
 .pwa_benefits {
 	display: grid;
+	width: min(100%, 980px);
 	margin-top: 28px;
+	margin-right: auto;
+	margin-left: auto;
 	padding: 26px 30px;
 	border: 1px solid var(--line);
 	border-radius: 20px;
@@ -956,7 +878,10 @@ h1 em {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	width: min(100%, 980px);
 	margin-top: 45px;
+	margin-right: auto;
+	margin-left: auto;
 	gap: 28px;
 }
 
